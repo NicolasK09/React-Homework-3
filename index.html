@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+</head>
+<body>
+    <h1 id="title">დარჩა 0 იუზერი</h1>
+    <ul id="userList"></ul>
+    <button id="generateButton">იუზერების გენერირება</button>
+
+    <script>
+        function generateUsers() {
+    const users = [];
+    for (let i = 1; i <= 10; i++) {
+      users.push(`User ${i}`);
+    }
+    return users;
+  }
+  
+  // Get references to HTML elements
+  const titleElement = document.getElementById('title');
+  const userListElement = document.getElementById('userList');
+  const generateButton = document.getElementById('generateButton');
+  
+  let users = [];
+  
+  generateButton.addEventListener('click', () => {
+    users = generateUsers();
+    updateUI();
+  });
+  
+  function updateUI() {
+    titleElement.textContent = `დარჩა ${users.length} იუზერი`;
+  
+    userListElement.innerHTML = '';
+    users.forEach((user, index) => {
+      const li = document.createElement('li');
+      li.textContent = user;
+  
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'წაშლა';
+      deleteButton.addEventListener('click', () => {
+        users.splice(index, 1);
+        updateUI();
+      });
+  
+      li.appendChild(deleteButton);
+      userListElement.appendChild(li);
+    });
+  }
+  
+  updateUI();
+    </script>
+</body>
+</html>
